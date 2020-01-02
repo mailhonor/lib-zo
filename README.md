@@ -1,40 +1,76 @@
 # lib-zo
 
-#### 介绍
-C协程库, 单文件易于迁移. 只支持X64.
+一个 C 协程库
+
+本协程库是从 [https://gitee.com/eli960/lib-zc](https://gitee.com/eli960/lib-zc)抽出来的. 可单独使用
+
+## 感谢
+
+本协程库的实现参考了 libco, libgo, nodejs 的实现
+
+## 介绍
+
+只支持X64
+
 支持文件IO类协程化(如mkdir, getdents等)
+
 支持协程条件, 协程锁
-慢操作协程支持
 
-#### 软件架构
-软件架构说明
+慢慢操作协程化
+
+支持sleep
+
+部分支持dns协议
+
+支持静态编译
+
+## 睡眠
+
+支持sleep
+
+不支持usleep和nanosleep
+
+毫秒睡眠请用 void zcoroutine\_sleep\_millisecond(int milliseconds);
+
+## 支持的文件io
+
+可开启支持文件io在其他线程池工作
+
+open, openat, close, read, readv, write, writev, lseek,
+
+fdatasync, fsync, rename, truncate, ftruncate,
+
+rmdir, mkdir, getdents,
+
+stat, fstat, lstat, link, symlink, readlink, unlink,
+
+chmod, fchmod, chown, fchown, lchown, utime, utimes,
+
+## 支持慢(阻塞式)操作
+
+慢操作可以在其他线程池工作
+
+## dns协议
+
+部分glibc版本不支持dns解析. 简单的说
+
+如果 resolv 库支持 res\_ninit, 就会出现bug, 其他 版本没问题
 
 
-#### 安装教程
+## 源码目录
 
-1.  xxxx
-2.  xxxx
-3.  xxxx
+coroutine.c coroutine.h 是源码
 
-#### 使用说明
+\*\_test.c 是例子
 
-1.  xxxx
-2.  xxxx
-3.  xxxx
+## 编译
 
-#### 参与贡献
+make
 
-1.  Fork 本仓库
-2.  新建 Feat_xxx 分支
-3.  提交代码
-4.  新建 Pull Request
+得到
 
+libzc\_coroutine.a
 
-#### 码云特技
+## 使用
 
-1.  使用 Readme\_XXX.md 来支持不同的语言，例如 Readme\_en.md, Readme\_zh.md
-2.  码云官方博客 [blog.gitee.com](https://blog.gitee.com)
-3.  你可以 [https://gitee.com/explore](https://gitee.com/explore) 这个地址来了解码云上的优秀开源项目
-4.  [GVP](https://gitee.com/gvp) 全称是码云最有价值开源项目，是码云综合评定出的优秀开源项目
-5.  码云官方提供的使用手册 [https://gitee.com/help](https://gitee.com/help)
-6.  码云封面人物是一档用来展示码云会员风采的栏目 [https://gitee.com/gitee-stars/](https://gitee.com/gitee-stars/)
+gcc your\_code.c ./libzc\_coroutine.a
