@@ -6,7 +6,7 @@
  * ================================
  */
 
-#include "./coroutine.h"
+#include "coroutine.h"
 
 #include <stdio.h>
 #include <unistd.h>

@@ -6,7 +6,7 @@
  * ================================
  */
 
-#include "./coroutine.h"
+#include "coroutine.h"
 
 #include <arpa/inet.h>
 #include <errno.h>
