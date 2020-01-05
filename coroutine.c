@@ -2946,11 +2946,8 @@ int socket(int domain, int type, int protocol)
         return fd;
     }
 
-    fprintf(stderr, "soketttttttttttttttttttttt 1\n");
     zcoroutine_fd_attribute_create(fd);
-    fprintf(stderr, "soketttttttttttttttttttttt 2\n");
 	fcntl(fd, F_SETFL, fcntl(fd, F_GETFL, 0));
-    fprintf(stderr, "soketttttttttttttttttttttt 3\n");
 
 	return fd;
 }
@@ -3361,12 +3358,9 @@ ssize_t recvfrom(int socket, void *buf, size_t length, int flags, struct sockadd
 /* {{{ send hook */
 ssize_t send(int socket, const void *buffer, size_t length, int flags)
 {
-    fprintf(stderr, "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX 1\n");
     return_zcc_call_co(socket) {
-    fprintf(stderr, "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX 2\n");
 		return zcoroutine_syscall_send(socket,buffer,length,flags);
     }
-    fprintf(stderr, "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX 3\n");
 #if 0
     general_write_wait(socket);
     int ret = zcoroutine_syscall_send(socket,(const char*)buffer, length, flags);
