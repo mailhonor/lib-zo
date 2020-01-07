@@ -44,6 +44,8 @@
 
 /* {{{ macro */
 
+#define zvar_coroutine_max_timeout_millisecond (3600L * 24 * 365 * 10 * 1000)
+
 #define ZEMPTY(str)                  (!(str)||!(*((const char *)str)))
 
 #define ZCONTAINER_OF(ptr,app_type,member) ((app_type *) (((char *) (ptr)) - offsetof(app_type,member)))
@@ -2402,15 +2404,12 @@ static int zcoroutine_poll(zcoroutine_t *co, struct pollfd fds[], nfds_t nfds, i
         is_epoll_ctl = 1;
         cfa->by_epoll = 0;
         cfa->co = co;
-        cfa->timeout = now_ms + timeout;
+        cfa->timeout = now_ms + (timeout<0?zvar_coroutine_max_timeout_millisecond:timeout);
         zcoroutine_rbtree_attach(&(cobs->fd_timeout_zrbtree), &(cfa->rbnode));
     }
 
     if (is_epoll_ctl == 0) {
-        if (timeout < 1) {
-            return 0;
-        }
-        co->sleep_timeout = now_ms + timeout;
+        co->sleep_timeout = now_ms + (timeout<0?zvar_coroutine_max_timeout_millisecond:timeout);
         zcoroutine_rbtree_attach(&(cobs->sleep_zrbtree), &(co->sleep_rbnode));
         co->inner_yield = 1;
         zcoroutine_yield_my(co);
@@ -2733,7 +2732,7 @@ void zcoroutine_sleep_millisecond(int milliseconds)
 /* {{{ poll hook */
 int poll(struct pollfd fds[], nfds_t nfds, int timeout)
 {
-    if (timeout < 1) {
+    if (timeout == 0) {
         return zcoroutine_syscall_poll(fds, nfds, 0);
     }
     zcoroutine_base_t *cobs = zcoroutine_base_get_current_inner();

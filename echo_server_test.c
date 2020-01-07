@@ -69,18 +69,16 @@ static void *echo_service(void *context)
 {
     int fd = (int)(long)context;
     char buf[10240+1];
-    FILE *fp = fdopen(fd, "r+");
+    int ret;
 
-    while(fgets(buf, 10240, fp)) {
+    while((ret = read(fd, buf, 10240)) > 0) {
+        buf[ret] = 0;
         printf("your input: %s", buf);
-        fputs(buf, fp);
-        fflush(fp);
+        write(fd, buf, ret);
         if ((!strncasecmp(buf, "exit", 4)) || (!strncasecmp(buf, "quit", 4))) {
             break;
         }
     }
-
-    fclose(fp);
 
     return 0;
 }
@@ -111,6 +109,7 @@ int main(int argc, char **argv)
 {
     if (argc != 2) {
         printf("usage %s port\n", argv[0]);
+        return -1;
     }
     zcoroutine_base_init();
     zcoroutine_go(do_listen, argv[1], 0);
