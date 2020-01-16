@@ -2,7 +2,7 @@
 
 一个 C 协程库
 
-本协程库是从 [https://gitee.com/eli960/lib-zc](https://gitee.com/eli960/lib-zc)抽出来的. 可单独使用
+本协程库是从 [https://gitee.com/linuxmail/lib-zc](https://gitee.com/linuxmail/lib-zc)抽出来的. 可单独使用
 
 ## 感谢
 
