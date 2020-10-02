@@ -6,6 +6,8 @@
 
 本协程库是从 [https://gitee.com/linuxmail/lib-zc](https://gitee.com/linuxmail/lib-zc)抽出来的. 可单独使用
 
+帮助文档 [http://linuxmail.cn/lib-zc/coroutine.html](http://linuxmail.cn/lib-zc/coroutine.html)
+
 ## 感谢
 
 本协程库的实现参考了 libco, libgo, nodejs 的实现
