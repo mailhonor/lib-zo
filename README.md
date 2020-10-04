@@ -24,6 +24,8 @@
 
 支持sleep
 
+UDP 默认禁用协程切换
+
 部分支持dns协议
 
 支持静态编译
@@ -56,10 +58,17 @@ chmod, fchmod, chown, fchown, lchown, utime, utimes,
 
 ## dns协议
 
-部分glibc版本不支持dns解析. 简单的说
+部分 glibc 版本不支持dns解析. 简单的说
 
 如果 resolv 库支持 res\_ninit, 就会出现bug, 其他 版本没问题
 
+如果需要查询常用域名的 IP 地址, 可以写到 hosts 文件
+
+复杂的 DNS 操作, 参考 "慢操作协程化"
+
+## UDP 默认禁用协程切换
+
+DNS 查询, 结果小的情况下(小于512字节)默认使用 UDP, 此时查询没有问题, 但会阻塞
 
 ## 源码目录
 
