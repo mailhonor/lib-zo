@@ -19,7 +19,7 @@ $(TEST_OBJS):libzc_coroutine.a
 
 $(TEST_OBJS):%:%.c
 	@echo build $@
-	$(CC) -o $@ $@.c $(CFLAGS) libzc_coroutine.a -lpthread
+	$(CC) -o $@ $@.c $(CFLAGS) libzc_coroutine.a -lresolv -lpthread
 
 all_test:$(TEST_OBJS)
 
