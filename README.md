@@ -57,7 +57,7 @@ chmod, fchmod, chown, fchown, lchown, utime, utimes,
 
 ## dns协议
 
-大部分部分 glibc 版本不支持 DNS 解析, 至少 glibc 版本 2.12 没问题
+本框架下, 大部分 glibc 版本的 DNS 解析会有 BUG, 但至少版本 2.12 没问题
 
 如果有问题, 建议:
 
