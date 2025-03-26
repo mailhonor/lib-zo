@@ -1,13 +1,12 @@
-<A name="readme_md" id="readme_md"></A>
 
 # lib-zo
 
 一个 C 协程库
 
-本协程库是从 [https://gitee.com/linuxmail/lib-zc](https://gitee.com/linuxmail/lib-zc) 抽出来的,
+本协程库是从 [https://github.com/mailhonor/lib-zc](https://github.com/mailhonor/lib-zc) 抽出来的,
 可单独使用
 
-帮助文档 https://gitee.com/linuxmail/lib-zc/blob/master/doc/coroutine.md
+帮助文档 https://github.com/mailhonor/lib-zc/blob/master/doc/coroutine.md
 
 ## 感谢
 
